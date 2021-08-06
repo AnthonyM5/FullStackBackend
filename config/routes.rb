@@ -3,4 +3,8 @@ Rails.application.routes.draw do
 
   get '/welcome', to: "welcome#index"
 
+  get '/random', to: "gif#random"
+
+  resources :gifs
+
 end
