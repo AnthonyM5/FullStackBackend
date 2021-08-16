@@ -3,9 +3,11 @@ require "uri"
 require "net/http"
 require 'json'
 
-API_KEY = 'GxcROPu9p4Ai7eSk98Ks0EMrdjbtZ9nA'
-API_ROOT = 'https://api.giphy.com/v1/gifs/search?q='
+API_KEY = '2Kn8AkarJbz0ZWJuW8HriollOr4p7HPx'
+API_ROOT = 'https://api.giphy.com/v1/gifs/search?'
 RANDOM = 'https://api.giphy.com/v1/gifs/random?'
+
+SET = 'https://api.giphy.com/v1/gifs/search?api_key=2Kn8AkarJbz0ZWJuW8HriollOr4p7HPx&q=random'
 
 # api.giphy.com/v1/gifs/search?q=alright&api_key=GxcROPu9p4Ai7eSk98Ks0EMrdjbtZ9nA
 
@@ -17,13 +19,15 @@ RANDOM = 'https://api.giphy.com/v1/gifs/random?'
         render json: result
     end
 
-
-    def search_params
-        params.permit(:query)
+    def search 
+        resp = Net::HTTP.get_response(URI.parse(API_ROOT + "api_key=#{API_KEY}" + "&q=#{params[:term]}"))
+        buffer = resp.body
+        result = JSON.parse(buffer)
+        render json: result
     end
 
-    def create 
- 
+    def search_params
+        params.permit(:term)
     end
 
 end

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get '/random', to: "gif#random"
 
+  post '/gif', to: "gif#search"
+
   resources :gifs
 
 end
